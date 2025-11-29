@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Положення точки відносно графіка y=x³</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .container {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .on-graph {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .above-graph {
+            background-color: #cce5ff;
+            color: #004085;
+            border: 1px solid #b8daff;
+        }
+        .below-graph {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Визначення положення точки відносно графіка y=x³</h1>
+
+        <div class="input-group">
+            <label for="x">Координата X:</label>
+            <input type="number" id="x" step="any" placeholder="Введіть координату x">
+        </div>
+        <div class="input-group">
+            <label for="y">Координата Y:</label>
+            <input type="number" id="y" step="any" placeholder="Введіть координату y">
+        </div>
+        <button onclick="checkPointPosition()">Перевірити положення точки</button>
+        <div id="result" class="result"></div>
+    </div>
+    <script>
+        function checkPointPosition() {
+            const x = parseFloat(document.getElementById('x').value);
+            const y = parseFloat(document.getElementById('y').value);
+            const resultElement = document.getElementById('result');
+            if (isNaN(x) || isNaN(y)) {
+                resultElement.textContent = "Будь ласка, введіть коректні числові значення для обох координат!";
+                resultElement.className = "result below-graph";
+                return;
+            }
+            const functionValue = Math.pow(x, 3);
+            let position;
+            let cssClass;
+            if (Math.abs(y - functionValue) < 0.000001) {
+                position = "на графіку функції y=x³";
+                cssClass = "on-graph";
+            } else if (y > functionValue) {
+                position = "вище графіка функції y=x³";
+                cssClass = "above-graph";
+            } else {
+                position = "нижче графіка функції y=x³";
+                cssClass = "below-graph";
+            }
+            resultElement.textContent = `Точка N(${x}; ${y}) знаходиться ${position}. Значення функції в точці x=${x}: y=${functionValue.toFixed(4)}`;
+            resultElement.className = "result " + cssClass;
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('x').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkPointPosition();
+                }
+            });
+            document.getElementById('y').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkPointPosition();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
