@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обчислення функції</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .calculate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        .result-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            text-align: left;
+        }
+
+        .result-item {
+            margin: 10px 0;
+            padding: 8px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+        }
+
+        .result-value {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: #2d3748;
+            color: #68d391;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .error {
+            background: #fed7d7;
+            color: #c53030;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #c53030;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Обчислення функції f(x)</h1>
+        <button onclick="calculateFunction()" class="calculate-btn">Обчислити функцію</button>
+        <div id="result" class="result-container">
+            <div class="result-item">Тут буде показано результат обчислень</div>
+        </div>
+    </div>
+
+    <script>
+        function calculateFunction() {
+            let xInput = prompt("Введіть значення x для обчислення функції:\nf(x) = √|x-4| + cos(x) + 3");
+            if (xInput === null) {
+                displayResult("Операцію скасовано користувачем", true);
+                return;
+            }
+            let x = parseFloat(xInput);
+            if (isNaN(x)) {
+                displayResult("Помилка: Будь ласка, введіть коректне числове значення!", true);
+                return;
+            }
+            try {
+                let absoluteValue = Math.abs(x - 4);
+                let sqrtValue = Math.sqrt(absoluteValue);
+                let cosValue = Math.cos(x);
+                let result = sqrtValue + cosValue + 3;
+                
+                // Відображення результату
+                displayCalculation(x, absoluteValue, sqrtValue, cosValue, result);
+                
+            } catch (error) {
+                displayResult(`Помилка обчислення: ${error.message}`, true);
+            }
+        }
+        function displayCalculation(x, absoluteValue, sqrtValue, cosValue, result) {
+            const resultContainer = document.getElementById('result');
+            
+            resultContainer.innerHTML = `
+                <div class="formula">f(x) = √|x-4| + cos(x) + 3</div>
+                
+                <div class="result-item">
+                    <strong>Вхідні дані:</strong>
+                    <div class="result-value">x = ${x}</div>
+                </div>
+                
+                <div class="result-item">
+                    <strong>Проміжні обчислення:</strong>
+                    <div>|x-4| = |${x}-4| = ${absoluteValue.toFixed(4)}</div>
+                    <div>√|x-4| = √${absoluteValue.toFixed(4)} = ${sqrtValue.toFixed(4)}</div>
+                    <div>cos(${x}) = ${cosValue.toFixed(4)}</div>
+                </div>
+                
+                <div class="result-item">
+                    <strong>Результат обчислення:</strong>
+                    <div class="result-value">f(${x}) = ${sqrtValue.toFixed(4)} + ${cosValue.toFixed(4)} + 3 = ${result.toFixed(4)}</div>
+                </div>
+                
+                <div class="result-item">
+                    <strong>Округлений результат:</strong>
+                    <div class="result-value">f(${x}) ≈ ${Math.round(result * 100) / 100}</div>
+                </div>
+            `;
+        }
+        function displayResult(message, isError = false) {
+            const resultContainer = document.getElementById('result');
+            
+            if (isError) {
+                resultContainer.innerHTML = `<div class="error">${message}</div>`;
+            } else {
+                resultContainer.innerHTML = `<div class="result-item">${message}</div>`;
+            }
+        }
+        function showInstructions() {
+            alert("Інструкція:\n1. Натисніть кнопку 'Обчислити функцію'\n2. Введіть числове значення x\n3. Перегляньте результат на сторінці");
+        }
+        window.addEventListener('load', function() {
+            console.log("Сторінка завантажена. Готово до обчислень!");
+        });
+    </script>
+</body>
+</html>
