@@ -1,0 +1,22 @@
+function calculateRhombus() {
+    let diagonal1 = parseFloat(prompt("Введіть довжину першої діагоналі ромба:"));
+    if (isNaN(diagonal1) || diagonal1 <= 0) {
+        alert("Будь ласка, введіть коректне додатне число для першої діагоналі!");
+        return;
+    }
+    let diagonal2 = parseFloat(prompt("Введіть довжину другої діагоналі ромба:"));
+    if (isNaN(diagonal2) || diagonal2 <= 0) {
+        alert("Будь ласка, введіть коректне додатне число для другої діагоналі!");
+        return;
+    }
+    let area = (diagonal1 * diagonal2) / 2;
+    let side = Math.sqrt(Math.pow(diagonal1 / 2, 2) + Math.pow(diagonal2 / 2, 2));
+    let perimeter = 4 * side;
+    let result = `Результати обчислень для ромба:
+    - Перша діагональ: ${diagonal1}
+    - Друга діагональ: ${diagonal2}
+    - Площа: ${area.toFixed(2)}
+    - Периметр: ${perimeter.toFixed(2)}`;
+    alert(result);
+}
+calculateRhombus();
