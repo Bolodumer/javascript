@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Області України</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0057b7;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #0057b7;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background: linear-gradient(135deg, #0057b7, #ffd700);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            background-color: #e8f4fd;
+            border-left: 5px solid #0057b7;
+        }
+        .error {
+            background-color: #ffe6e6;
+            border-left: 5px solid #ff4444;
+            color: #cc0000;
+        }
+        .region-info {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .area {
+            color: #0057b7;
+            font-size: 20px;
+        }
+        .note {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 Області України</h1>
+        
+        <div class="input-group">
+            <label for="regionNumber">Введіть номер області (від 1 до 25):</label>
+            <input type="number" id="regionNumber" min="1" max="25" placeholder="Наприклад: 12">
+        </div>
+        
+        <button onclick="findRegion()">Знайти область</button>
+        
+        <div id="result" class="result">
+
+        </div>
+
+    </div>
+
+    <script>
+        function findRegion() {
+
+            const regionNumber = parseInt(document.getElementById('regionNumber').value);
+            const resultElement = document.getElementById('result');
+
+            if (isNaN(regionNumber) || regionNumber < 1 || regionNumber > 25) {
+                resultElement.innerHTML = "❌ Будь ласка, введіть коректний номер області (від 1 до 25)!";
+                resultElement.className = "result error";
+                return;
+            }
+
+            let regionName = "";
+            let area = "";
+            switch(regionNumber) {
+                case 1:
+                    regionName = "АР Крим";
+                    area = "26,081 км²";
+                    break;
+                case 2:
+                    regionName = "Вінницька область";
+                    area = "26,513 км²";
+                    break;
+                case 3:
+                    regionName = "Волинська область";
+                    area = "20,144 км²";
+                    break;
+                case 4:
+                    regionName = "Дніпропетровська область";
+                    area = "31,914 км²";
+                    break;
+                case 5:
+                    regionName = "Донецька область";
+                    area = "26,517 км²";
+                    break;
+                case 6:
+                    regionName = "Житомирська область";
+                    area = "29,832 км²";
+                    break;
+                case 7:
+                    regionName = "Закарпатська область";
+                    area = "12,777 км²";
+                    break;
+                case 8:
+                    regionName = "Запорізька область";
+                    area = "27,180 км²";
+                    break;
+                case 9:
+                    regionName = "Івано-Франківська область";
+                    area = "13,928 км²";
+                    break;
+                case 10:
+                    regionName = "Київська область";
+                    area = "28,131 км²";
+                    break;
+                case 11:
+                    regionName = "Кіровоградська область";
+                    area = "24,588 км²";
+                    break;
+                case 12:
+                    regionName = "Луганська область";
+                    area = "26,684 км²";
+                    break;
+                case 13:
+                    regionName = "Львівська область";
+                    area = "21,833 км²";
+                    break;
+                case 14:
+                    regionName = "Миколаївська область";
+                    area = "24,598 км²";
+                    break;
+                case 15:
+                    regionName = "Одеська область";
+                    area = "33,310 км²";
+                    break;
+                case 16:
+                    regionName = "Полтавська область";
+                    area = "28,748 км²";
+                    break;
+                case 17:
+                    regionName = "Рівненська область";
+                    area = "20,047 км²";
+                    break;
+                case 18:
+                    regionName = "Сумська область";
+                    area = "23,834 км²";
+                    break;
+                case 19:
+                    regionName = "Тернопільська область";
+                    area = "13,823 км²";
+                    break;
+                case 20:
+                    regionName = "Харківська область";
+                    area = "31,415 км²";
+                    break;
+                case 21:
+                    regionName = "Херсонська область";
+                    area = "28,461 км²";
+                    break;
+                case 22:
+                    regionName = "Хмельницька область";
+                    area = "20,645 км²";
+                    break;
+                case 23:
+                    regionName = "Черкаська область";
+                    area = "20,900 км²";
+                    break;
+                case 24:
+                    regionName = "Чернівецька область";
+                    area = "8,097 км²";
+                    break;
+                case 25:
+                    regionName = "Чернігівська область";
+                    area = "31,865 км²";
+                    break;
+                default:
+                    regionName = "Невідома область";
+                    area = "н/д";
+                    break;
+            }
+
+            resultElement.innerHTML = `
+                <div class="region-info">🏛️ <strong>${regionName}</strong></div>
+                <div class="region-info">📏 Площа: <span class="area">${area}</span></div>
+                <div class="region-info">🔢 Код області: <strong>${regionNumber}</strong></div>
+            `;
+            resultElement.className = "result";
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('regionNumber').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    findRegion();
+                }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('regionNumber').focus();
+        });
+    </script>
+</body>
+</html>
