@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Class</title>
+</head>
+<body>
+    <script>
+        class City {
+            #population;
+            #budget;
+            constructor(name, country, population, area, budget) {
+                this.name = name;
+                this.country = country;
+                this.#population = population;
+                this.area = area;
+                this.#budget = budget;
+            }
+            getPopulation() {
+                return this.#population;
+            }
+            setPopulation(newPopulation) {
+                if (newPopulation >= 0) {
+                    this.#population = newPopulation;
+                }
+            }
+            getBudget() {
+                return this.#budget;
+            }
+            setBudget(newBudget) {
+                if (newBudget >= 0) {
+                    this.#budget = newBudget;
+                }
+            }
+            calculateDensity() {
+                return this.#population / this.area;
+            }
+            addResidents(count) {
+                this.#population += count;
+            }
+            invest(amount) {
+                this.#budget += amount;
+            }
+            spend(amount) {
+                if (amount <= this.#budget) {
+                    this.#budget -= amount;
+                    return true;
+                }
+                return false;
+            }
+            getInfo() {
+                return `${this.name}, ${this.country}. Населення: ${this.#population}, Площа: ${this.area} км², Бюджет: ${this.#budget}`;
+            }
+        }
+        const kyiv = new City("Київ", "Україна", 2960000, 839, 50000000);
+        const lviv = new City("Львів", "Україна", 721000, 182, 15000000);
+        console.log(kyiv.getInfo());
+        console.log(lviv.getInfo());
+        console.log("Густота населення Києва:", kyiv.calculateDensity().toFixed(2));
+        console.log("Густота населення Львова:", lviv.calculateDensity().toFixed(2));
+        kyiv.addResidents(50000);
+        lviv.addResidents(25000);
+        kyiv.invest(10000000);
+        lviv.spend(5000000);
+        console.log("Після змін:");
+        console.log(kyiv.getInfo());
+        console.log(lviv.getInfo());
+        console.log("Бюджет Києва:", kyiv.getBudget());
+        console.log("Бюджет Львова:", lviv.getBudget());
+    </script>
+</body>
+</html>
