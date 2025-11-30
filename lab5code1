@@ -1,1 +1,36 @@
-
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Object</title>
+</head>
+<body>
+    <script>
+        function Address(country, city, street, houseNumber, postalCode) {
+            this.country = country;
+            this.city = city;
+            this.street = street;
+            this.houseNumber = houseNumber;
+            this.postalCode = postalCode;
+            this.getFullAddress = function() {
+                return `${this.street} ${this.houseNumber}, ${this.city}, ${this.postalCode}, ${this.country}`;
+            };
+            this.updatePostalCode = function(newPostalCode) {
+                this.postalCode = newPostalCode;
+            };
+            this.isSameCity = function(otherAddress) {
+                return this.city === otherAddress.city;
+            };
+        }
+        const address1 = new Address("Україна", "Київ", "вул. Хрещатик", "25", "01001");
+        const address2 = new Address("Україна", "Львів", "проспект Свободи", "15", "79000");
+        const address3 = new Address("Україна", "Одеса", "вул. Дерибасівська", "10", "65000");
+        const address4 = new Address("Польща", "Варшава", "Marszałkowska", "100", "00-001");
+        console.log(address1.getFullAddress());
+        console.log(address2.getFullAddress());
+        console.log(address3.getFullAddress());
+        console.log(address4.getFullAddress());
+    </script>
+</body>
+</html>
