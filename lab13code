@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Світлофор</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .traffic-light {
+            width: 120px;
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .light {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 10px auto;
+            background-color: #444;
+            transition: background-color 0.3s;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="traffic-light">
+        <div class="light" id="redLight"></div>
+        <div class="light" id="yellowLight"></div>
+        <div class="light" id="greenLight"></div>
+    </div>
+    <button onclick="switchLight()">Перемкнути світлофор</button>
+    <script>
+        let currentState = 0; 
+        function switchLight() {
+            const redLight = document.getElementById('redLight');
+            const yellowLight = document.getElementById('yellowLight');
+            const greenLight = document.getElementById('greenLight');
+            redLight.style.backgroundColor = '#444';
+            yellowLight.style.backgroundColor = '#444';
+            greenLight.style.backgroundColor = '#444';
+            switch(currentState) {
+                case 0: 
+                    redLight.style.backgroundColor = '#ff0000';
+                    break;
+                case 1: 
+                    redLight.style.backgroundColor = '#ff0000';
+                    yellowLight.style.backgroundColor = '#ffff00';
+                    break;
+                case 2: 
+                    greenLight.style.backgroundColor = '#00ff00';
+                    break;
+                case 3: 
+                    yellowLight.style.backgroundColor = '#ffff00';
+                    break;
+            }
+            currentState = (currentState + 1) % 4;
+        }
+        window.onload = function() {
+            document.getElementById('redLight').style.backgroundColor = '#ff0000';
+        };
+    </script>
+</body>
+</html>
