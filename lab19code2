@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebStorage - Домашні улюбленці</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e8;
+            border-radius: 5px;
+            border: 1px solid #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Домашні улюбленці - WebStorage</h2>
+        <div>
+            <input type="text" id="petName" placeholder="Кличка улюбленця">
+            <input type="number" id="petAge" placeholder="Вік улюбленця" min="0" max="50">
+            <button onclick="savePetData()">Зберегти дані</button>
+        </div>
+        <div>
+            <button onclick="readPetData()">Показати дані</button>
+        </div>
+        <div id="result" class="result"></div>
+    </div>
+    <script>
+        function savePetData() {
+            const petName = document.getElementById('petName').value.trim();
+            const petAge = document.getElementById('petAge').value.trim();
+            if (petName === '' || petAge === '') {
+                alert('Будь ласка, заповніть всі поля');
+                return;
+            }
+            if (petAge < 0 || petAge > 50) {
+                alert('Будь ласка, введіть коректний вік (0-50)');
+                return;
+            }
+            localStorage.setItem('petName', petName);
+            localStorage.setItem('petAge', petAge);
+            alert(`Дані про ${petName} збережено!`);
+            document.getElementById('petName').value = '';
+            document.getElementById('petAge').value = '';
+        }
+        function readPetData() {
+            const resultDiv = document.getElementById('result');
+            const petName = localStorage.getItem('petName');
+            const petAge = localStorage.getItem('petAge');
+            if (petName && petAge) {
+                resultDiv.innerHTML = `
+                    <strong>Дані про вашого улюбленця:</strong><br>
+                    Кличка: ${petName}<br>
+                    Вік: ${petAge} років
+                `;
+            } else {
+                resultDiv.innerHTML = 'Дані про улюбленця не знайдено. Спочатку збережіть дані.';
+            }
+        }
+        document.getElementById('petName').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                savePetData();
+            }
+        });
+        document.getElementById('petAge').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                savePetData();
+            }
+        });
+    </script>
+</body>
+</html>
