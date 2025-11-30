@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weapon Object</title>
+</head>
+<body>
+    <script>
+        function Weapon(name, damage, weight, range) {
+            this.name = name;
+            this.damage = damage;
+            this.weight = weight;
+            this.range = range;
+            this.attack = function() {
+                return `${this.name} завдає ${this.damage} шкоди`;
+            };
+            this.upgrade = function(additionalDamage) {
+                this.damage += additionalDamage;
+            };
+            this.getWeaponInfo = function() {
+                return `Назва: ${this.name}, Шкода: ${this.damage}, Вага: ${this.weight}, Дальність: ${this.range}`;
+            };
+        }
+        const sword = new Weapon("Меч", 25, 3, 2);
+        const bow = new Weapon("Лук", 15, 1, 50);
+        const axe = new Weapon("Сокира", 30, 5, 1);
+        function MagicWeapon(name, damage, weight, range, magicDamage, spell) {
+            Weapon.call(this, name, damage, weight, range);
+            this.magicDamage = magicDamage;
+            this.spell = spell;
+            this.castSpell = function() {
+                return `${this.name} викликає заклинання: ${this.spell}`;
+            };
+            this.getTotalDamage = function() {
+                return this.damage + this.magicDamage;
+            };
+        }
+        function RangedWeapon(name, damage, weight, range, ammo, reloadTime) {
+            Weapon.call(this, name, damage, weight, range);
+            this.ammo = ammo;
+            this.reloadTime = reloadTime;
+            this.reload = function() {
+                return `${this.name} перезаряджається за ${this.reloadTime} секунд`;
+            };
+            this.checkAmmo = function() {
+                return `Залишилось набоїв: ${this.ammo}`;
+            };
+        }
+        function MeleeWeapon(name, damage, weight, range, durability, twoHanded) {
+            Weapon.call(this, name, damage, weight, range);
+            this.durability = durability;
+            this.twoHanded = twoHanded;
+            this.repair = function() {
+                this.durability = 100;
+                return `${this.name} відремонтовано`;
+            };
+            this.isTwoHanded = function() {
+                return this.twoHanded;
+            };
+        }
+        const fireStaff = new MagicWeapon("Вогняний посох", 20, 2, 10, 15, "Вогняна куля");
+        const crossbow = new RangedWeapon("Арбалет", 35, 4, 40, 12, 3);
+        const greatsword = new MeleeWeapon("Двосічний меч", 40, 8, 3, 85, true);
+        console.log(sword.attack());
+        console.log(bow.getWeaponInfo());
+        sword.upgrade(5);
+        console.log(sword.attack());
+        console.log(fireStaff.castSpell());
+        console.log(fireStaff.getTotalDamage());
+        console.log(crossbow.reload());
+        console.log(crossbow.checkAmmo());
+        console.log(greatsword.repair());
+        console.log(greatsword.isTwoHanded());
+    </script>
+</body>
+</html>
