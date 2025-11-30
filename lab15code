@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Взаємодія з елементами</title>
+</head>
+<body>
+    <input type="text" id="textField" placeholder="Клацніть сюди">
+    <button id="toggleButton">Перемкнути checkbox</button>
+    <label>
+        <input type="checkbox" id="myCheckbox"> Checkbox
+    </label>
+    <p id="greeting"></p>
+    <script>
+        const textField = document.getElementById('textField');
+        const toggleButton = document.getElementById('toggleButton');
+        const myCheckbox = document.getElementById('myCheckbox');
+        const greeting = document.getElementById('greeting');
+        textField.addEventListener('click', function() {
+            greeting.textContent = 'Вітаю! Мене звати Іван.';
+        });
+        toggleButton.addEventListener('click', function() {
+            myCheckbox.checked = !myCheckbox.checked;
+        });
+    </script>
+</body>
+</html>
