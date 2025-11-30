@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Function</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e8;
+            border-radius: 5px;
+            border: 1px solid #4CAF50;
+        }
+        .loading {
+            background-color: #fff3cd;
+            border-color: #ffeaa7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Асинхронна функція з Promise</h2>
+        <button onclick="runAsyncFunction()">Запустити асинхронну функцію</button>
+        
+        <div id="result" class="result"></div>
+    </div>
+    <script>
+        async function asyncFunction() {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve("Проміс виконано успішно через 10 секунд!");
+                }, 10000);
+            });
+        }
+        async function runAsyncFunction() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = "Функція запущена... Чекаємо 10 секунд";
+            resultDiv.className = 'result loading';
+            try {
+                const result = await asyncFunction();
+                resultDiv.innerHTML = result;
+                resultDiv.className = 'result';
+            } catch (error) {
+                resultDiv.innerHTML = "Сталася помилка: " + error.message;
+                resultDiv.className = 'result';
+            }
+        }
+    </script>
+</body>
+</html>
