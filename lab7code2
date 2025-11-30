@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plate Array Processing</title>
+</head>
+<body>
+    <script>
+        class Plate {
+            #material;
+            #price;
+            constructor(diameter, color, material, price) {
+                this.diameter = diameter;
+                this.color = color;
+                this.#material = material;
+                this.#price = price;
+            }
+            getMaterial() {
+                return this.#material;
+            }
+            getPrice() {
+                return this.#price;
+            }
+            setPrice(newPrice) {
+                if (newPrice > 0) {
+                    this.#price = newPrice;
+                }
+            }
+            getInfo() {
+                return `Тарілка: Ø${this.diameter}см, колір: ${this.color}, матеріал: ${this.#material}, ціна: ${this.#price}грн`;
+            }
+        }
+        const plates = [
+            new Plate(20, "білий", "кераміка", 150),
+            new Plate(25, "синій", "скло", 200),
+            new Plate(18, "червоний", "пластик", 80),
+            new Plate(30, "зелений", "дерево", 300),
+            new Plate(22, "чорний", "метал", 250)
+        ];
+        console.log("Початковий масив з 5 тарілок:");
+        plates.forEach(plate => console.log(plate.getInfo()));
+        function addUserPlates() {
+            const plate6 = new Plate(28, "жовтий", "фарфор", 350);
+            const plate7 = new Plate(16, "рожевий", "скло", 120);
+                        plates.push(plate6, plate7);
+            console.log("Масив після додавання 2 тарілок:");
+            plates.forEach(plate => console.log(plate.getInfo()));
+        }
+        function searchByDiameter(diameter) {
+            const foundPlates = plates.filter(plate => plate.diameter === diameter);
+            if (foundPlates.length > 0) {
+                console.log(`Знайдено тарілки з діаметром ${diameter}см:`);
+                foundPlates.forEach(plate => console.log(plate.getInfo()));
+            } else {
+                console.log(`Тарілок з діаметром ${diameter}см не знайдено`);
+            }
+            return foundPlates;
+        }
+        addUserPlates();
+        searchByDiameter(25);
+        searchByDiameter(35);
+    </script>
+</body>
+</html>
