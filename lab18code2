@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIME Types</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e8;
+            border-radius: 5px;
+            border: 1px solid #4CAF50;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .mime-item {
+            margin: 5px 0;
+            padding: 5px;
+            background-color: #f8f9fa;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Список MIME типів, які підтримує браузер</h2>
+        <div>
+            <input type="text" id="urlInput" placeholder="Введіть адресу веб-сторінки">
+        </div>
+        <div>
+            <button onclick="showMimeTypes()">Показати MIME типи</button>
+            <button onclick="clearResults()">Очистити результати</button>
+        </div>
+        <div id="result" class="result"></div>
+    </div>
+    <script>
+        function showMimeTypes() {
+            const resultDiv = document.getElementById('result');
+            const urlInput = document.getElementById('urlInput').value.trim();
+            if (urlInput && !isValidUrl(urlInput)) {
+                resultDiv.innerHTML = 'Будь ласка, введіть коректну URL адресу';
+                return;
+            }
+            const mimeTypes = navigator.mimeTypes;
+            let mimeList = '';
+            if (mimeTypes && mimeTypes.length > 0) {
+                mimeList += `<h3>Браузер підтримує ${mimeTypes.length} MIME типів:</h3>`;
+                for (let i = 0; i < mimeTypes.length; i++) {
+                    const mimeType = mimeTypes[i];
+                    mimeList += `
+                        <div class="mime-item">
+                            <strong>${mimeType.type}</strong><br>
+                            Опис: ${mimeType.description || 'Немає опису'}<br>
+                            Розширення: ${mimeType.suffixes || 'Немає розширень'}
+                        </div>
+                    `;
+                }
+            } else {
+                mimeList = 'Не вдалося отримати список MIME типів або браузер не підтримує цю функцію';
+            }
+            resultDiv.innerHTML = mimeList;
+        }
+        function clearResults() {
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('urlInput').value = '';
+        }
+        function isValidUrl(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (_) {
+                return false;
+            }
+        }
+        document.getElementById('urlInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                showMimeTypes();
+            }
+        });
+    </script>
+</body>
+</html>
