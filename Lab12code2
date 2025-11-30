@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Словник кольорів</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .dictionary {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input type="text" id="englishInput" placeholder="Англійська назва">
+        <input type="text" id="ukrainianInput" placeholder="Український переклад">
+        <button onclick="addColor()">Додати колір</button>
+    </div>
+    <button onclick="showDictionary()">Показати словник</button>
+    <button onclick="createReversedDictionary()">Створити обернений словник</button>
+    <div id="output" class="dictionary"></div>
+    <script>
+        const colorDictionary = {
+            "red": "червоний",
+            "blue": "синій",
+            "green": "зелений",
+            "yellow": "жовтий",
+            "black": "чорний",
+            "white": "білий"
+        };
+        function addColor() {
+            const english = document.getElementById('englishInput').value.trim().toLowerCase();
+            const ukrainian = document.getElementById('ukrainianInput').value.trim().toLowerCase();
+            if (english && ukrainian) {
+                colorDictionary[english] = ukrainian;
+                document.getElementById('englishInput').value = '';
+                document.getElementById('ukrainianInput').value = '';
+                showOutput(`Колір "${english}" - "${ukrainian}" додано до словника`);
+            } else {
+                showOutput('Будь ласка, заповніть оба поля');
+            }
+        }
+        function showDictionary() {
+            let output = "<h3>Словник кольорів:</h3>";
+            for (const [english, ukrainian] of Object.entries(colorDictionary)) {
+                output += `${english} - ${ukrainian}<br>`;
+            }
+            showOutput(output);
+        }
+        function createReversedDictionary() {
+            const reversedDictionary = {};
+            for (const [english, ukrainian] of Object.entries(colorDictionary)) {
+                reversedDictionary[ukrainian] = english;
+            }
+            let output = "<h3>Обернений словник:</h3>";
+            for (const [ukrainian, english] of Object.entries(reversedDictionary)) {
+                output += `${ukrainian} - ${english}<br>`;
+            }
+            showOutput(output);
+        }
+        function showOutput(message) {
+            document.getElementById('output').innerHTML = message;
+        }
+        document.getElementById('englishInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                addColor();
+            }
+        });
+        document.getElementById('ukrainianInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                addColor();
+            }
+        });
+    </script>
+</body>
+</html>
