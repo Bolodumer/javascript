@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Inheritance</title>
+</head>
+<body>
+    <script>
+        class City {
+            #population;
+            #budget;
+            constructor(name, country, population, area, budget) {
+                this.name = name;
+                this.country = country;
+                this.#population = population;
+                this.area = area;
+                this.#budget = budget;
+            }
+            getPopulation() {
+                return this.#population;
+            }
+            setPopulation(newPopulation) {
+                if (newPopulation >= 0) {
+                    this.#population = newPopulation;
+                }
+            }
+            getBudget() {
+                return this.#budget;
+            }
+            setBudget(newBudget) {
+                if (newBudget >= 0) {
+                    this.#budget = newBudget;
+                }
+            }
+            calculateDensity() {
+                return this.#population / this.area;
+            }
+            addResidents(count) {
+                this.#population += count;
+            }
+            invest(amount) {
+                this.#budget += amount;
+            }
+            spend(amount) {
+                if (amount <= this.#budget) {
+                    this.#budget -= amount;
+                    return true;
+                }
+                return false;
+            }
+            getInfo() {
+                return `${this.name}, ${this.country}. Населення: ${this.#population}, Площа: ${this.area} км², Бюджет: ${this.#budget}`;
+            }
+        }
+        class Capital extends City {
+            constructor(name, country, population, area, budget, governmentBuildings, embassiesCount) {
+                super(name, country, population, area, budget);
+                this.governmentBuildings = governmentBuildings;
+                this.embassiesCount = embassiesCount;
+            }
+            hostInternationalEvent() {
+                this.invest(5000000);
+                return `${this.name} проводить міжнародну подію`;
+            }
+            addEmbassy() {
+                this.embassiesCount++;
+                return `Кількість посольств: ${this.embassiesCount}`;
+            }
+            getCapitalInfo() {
+                return `${this.getInfo()}, Урядові будівлі: ${this.governmentBuildings}, Посольства: ${this.embassiesCount}`;
+            }
+        }
+        class Town extends City {
+            constructor(name, country, population, area, budget, district, hasHospital, hasSchool) {
+                super(name, country, population, area, budget);
+                this.district = district;
+                this.hasHospital = hasHospital;
+                this.hasSchool = hasSchool;
+            }
+            buildHospital() {
+                if (!this.hasHospital && this.spend(2000000)) {
+                    this.hasHospital = true;
+                    return `Лікарню побудовано в ${this.name}`;
+                }
+                return `Не вдалося побудувати лікарню`;
+            }
+            buildSchool() {
+                if (!this.hasSchool && this.spend(1500000)) {
+                    this.hasSchool = true;
+                    return `Школу побудовано в ${this.name}`;
+                }
+                return `Не вдалося побудувати школу`;
+            }
+            getTownInfo() {
+                const hospitalStatus = this.hasHospital ? 'так' : 'ні';
+                const schoolStatus = this.hasSchool ? 'так' : 'ні';
+                return `${this.getInfo()}, Район: ${this.district}, Лікарня: ${hospitalStatus}, Школа: ${schoolStatus}`;
+            }
+        }
+        const kyiv = new Capital("Київ", "Україна", 2960000, 839, 50000000, 15, 45);
+        const warsaw = new Capital("Варшава", "Польща", 1790000, 517, 40000000, 12, 60);
+        const irpin = new Town("Ірпінь", "Україна", 65000, 110, 5000000, "Київська область", true, true);
+        const vasylkiv = new Town("Васильків", "Україна", 37000, 70, 3000000, "Київська область", true, false);
+        const boyarka = new Town("Боярка", "Україна", 42000, 85, 3500000, "Київська область", false, true);
+        console.log("=== СТОЛИЦІ ===");
+        console.log(kyiv.getCapitalInfo());
+        console.log(kyiv.hostInternationalEvent());
+        console.log(kyiv.addEmbassy());
+        console.log(kyiv.getCapitalInfo());
+        console.log(warsaw.getCapitalInfo());
+        console.log(warsaw.addEmbassy());
+        console.log("=== МІСТЕЧКА ===");
+        console.log(irpin.getTownInfo());
+        console.log(vasylkiv.getTownInfo());
+        console.log(boyarka.getTownInfo());
+        console.log(boyarka.buildHospital());
+        console.log(vasylkiv.buildSchool());
+        console.log("Після будівництва:");
+        console.log(boyarka.getTownInfo());
+        console.log(vasylkiv.getTownInfo());
+    </script>
+</body>
+</html>
