@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обробка множини</title>
+</head>
+<body>
+    <script>
+        const setA = new Set();
+        for (let i = 1; i <= 1000; i++) {
+            if (i % 7 === 0) {
+                setA.add(i);
+            }
+        }
+        console.log("Початкова множина A (числа, кратні 7):");
+        console.log(Array.from(setA).sort((a, b) => a - b));
+        const numbersToRemove = new Set();
+        let power = 7;
+        let exponent = 1;
+        while (power <= 1000) {
+            if (setA.has(power)) {
+                numbersToRemove.add(power);
+            }
+            exponent++;
+            power = Math.pow(7, exponent);
+        }
+        for (let num of setA) {
+            if (num % 9 === 0) {
+                numbersToRemove.add(num);
+            }
+        }
+        for (let num of numbersToRemove) {
+            setA.delete(num);
+        }
+        console.log("Числа, які були вилучені:");
+        console.log(Array.from(numbersToRemove).sort((a, b) => a - b));
+        console.log("Кінцева множина A після вилучення:");
+        console.log(Array.from(setA).sort((a, b) => a - b));
+        console.log("Кількість елементів у множині A:", setA.size);
+    </script>
+</body>
+</html>
