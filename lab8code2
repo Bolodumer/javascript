@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Двовимірний масив</title>
+</head>
+<body>
+    <script>
+        const matrix = [];
+        for (let i = 0; i < 3; i++) {
+            matrix[i] = [];
+            for (let j = 0; j < 5; j++) {
+                matrix[i][j] = Math.floor(Math.random() * 90) + 11;
+            }
+        }
+        console.log("Масив 3x5:");
+        matrix.forEach(row => console.log(row));
+        const numbersEndingWith3 = [];
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 5; j++) {
+                if (matrix[i][j] % 10 === 3) {
+                    numbersEndingWith3.push({
+                        value: matrix[i][j],
+                        row: i,
+                        column: j
+                    });
+                }
+            }
+        }
+        console.log("Елементи, які закінчуються на цифру 3:");
+        if (numbersEndingWith3.length > 0) {
+            numbersEndingWith3.forEach(item => {
+                console.log(`Значення: ${item.value}, Рядок: ${item.row}, Стовпець: ${item.column}`);
+            });
+        } else {
+            console.log("Елементів, які закінчуються на цифру 3, не знайдено");
+        }
+    </script>
+</body>
+</html>
