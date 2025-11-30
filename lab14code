@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoadLight Element</title>
+    <style>
+        road-light {
+            display: inline-block;
+            padding: 20px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        road-light .lights {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        road-light .light {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin: 0 auto;
+        }
+        road-light .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        road-light.red {
+            background-color: #ffebee;
+        }
+        road-light.yellow {
+            background-color: #fffde7;
+        }
+        road-light.green {
+            background-color: #e8f5e8;
+        }
+    </style>
+</head>
+<body>
+    <road-light>
+        <div class="lights">
+            <div class="light" id="redLight"></div>
+            <div class="light" id="yellowLight"></div>
+            <div class="light" id="greenLight"></div>
+        </div>
+        <div class="controls">
+            <label>
+                <input type="radio" name="color" value="red"> Червоний
+            </label>
+            <label>
+                <input type="radio" name="color" value="yellow"> Жовтий
+            </label>
+            <label>
+                <input type="radio" name="color" value="green"> Зелений
+            </label>
+        </div>
+    </road-light>
+    <script>
+        class RoadLight extends HTMLElement {
+            constructor() {
+                super();
+                this.attachShadow({ mode: 'open' });
+            }
+            connectedCallback() {
+                this.render();
+                this.setupEventListeners();
+            }
+            render() {
+                this.shadowRoot.innerHTML = `
+                    <style>
+                        :host {
+                            display: inline-block;
+                            padding: 20px;
+                            border: 2px solid #333;
+                            border-radius: 10px;
+                            background-color: #f0f0f0;
+                            text-align: center;
+                            transition: background-color 0.3s;
+                        }
+                        .lights {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 10px;
+                            margin-bottom: 15px;
+                        }
+                        .light {
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            background-color: #ccc;
+                            margin: 0 auto;
+                            transition: background-color 0.3s;
+                        }
+                        .controls {
+                            display: flex;
+                            gap: 10px;
+                            justify-content: center;
+                        }
+                        :host(.red) {
+                            background-color: #ffebee;
+                        }
+                        :host(.yellow) {
+                            background-color: #fffde7;
+                        }
+                        :host(.green) {
+                            background-color: #e8f5e8;
+                        }
+                    </style>
+                    <div class="lights">
+                        <div class="light" id="redLight"></div>
+                        <div class="light" id="yellowLight"></div>
+                        <div class="light" id="greenLight"></div>
+                    </div>
+                    <div class="controls">
+                        <label>
+                            <input type="radio" name="color" value="red"> Червоний
+                        </label>
+                        <label>
+                            <input type="radio" name="color" value="yellow"> Жовтий
+                        </label>
+                        <label>
+                            <input type="radio" name="color" value="green"> Зелений
+                        </label>
+                    </div>
+                `;
+            }
+            setupEventListeners() {
+                const radios = this.shadowRoot.querySelectorAll('input[type="radio"]');
+                radios.forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        this.switchColor(e.target.value);
+                    });
+                });
+            }
+            switchColor(color) {
+                const lights = this.shadowRoot.querySelectorAll('.light');
+                lights.forEach(light => {
+                    light.style.backgroundColor = '#ccc';
+                });
+                const selectedLight = this.shadowRoot.getElementById(`${color}Light`);
+                if (selectedLight) {
+                    const colorMap = {
+                        red: '#ff0000',
+                        yellow: '#ffff00',
+                        green: '#00ff00'
+                    };
+                    selectedLight.style.backgroundColor = colorMap[color];
+                }
+                this.classList.remove('red', 'yellow', 'green');
+                this.classList.add(color);
+            }
+        }
+        customElements.define('road-light', RoadLight);
+    </script>
+</body>
+</html>
