@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обчислення кола</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+        input {
+            padding: 8px;
+            width: 100px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e8;
+            border-radius: 5px;
+            border: 1px solid #4CAF50;
+        }
+        textarea {
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: none;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Обчислення центра кола та площі круга</h2>
+        <p>Відрізок AB є діаметром кола</p>
+        <form id="circleForm">
+            <div class="input-group">
+                <label>Координата x точки A:</label>
+                <input type="number" id="xA" step="any" required>
+            </div>
+            <div class="input-group">
+                <label>Координата y точки A:</label>
+                <input type="number" id="yA" step="any" required>
+            </div>
+            <div class="input-group">
+                <label>Координата x точки B:</label>
+                <input type="number" id="xB" step="any" required>
+            </div>
+            <div class="input-group">
+                <label>Координата y точки B:</label>
+                <input type="number" id="yB" step="any" required>
+            </div>
+            <button type="button" onclick="calculateCircle()">Обчислити</button>
+        </form>
+        <div class="result">
+            <label>Результати:</label>
+            <textarea id="resultOutput" readonly></textarea>
+        </div>
+    </div>
+    <script>
+        function calculateCircle() {
+            const xA = parseFloat(document.getElementById('xA').value);
+            const yA = parseFloat(document.getElementById('yA').value);
+            const xB = parseFloat(document.getElementById('xB').value);
+            const yB = parseFloat(document.getElementById('yB').value);
+            const centerX = (xA + xB) / 2;
+            const centerY = (yA + yB) / 2;
+            const diameter = Math.sqrt(Math.pow(xB - xA, 2) + Math.pow(yB - yA, 2));
+            const radius = diameter / 2;
+            const area = Math.PI * Math.pow(radius, 2);
+            const result = `Координати центра кола: (${centerX.toFixed(2)}, ${centerY.toFixed(2)})
+Довжина діаметра: ${diameter.toFixed(2)}
+Радіус кола: ${radius.toFixed(2)}
+Площа круга: ${area.toFixed(2)}`;
+            document.getElementById('resultOutput').value = result;
+        }
+    </script>
+</body>
+</html>
