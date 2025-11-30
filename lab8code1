@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Двовимірний масив</title>
+</head>
+<body>
+    <script>
+        const matrix = [];
+        for (let i = 0; i < 4; i++) {
+            matrix[i] = [];
+            for (let j = 0; j < 4; j++) {
+                matrix[i][j] = Math.floor(Math.random() * 12) + 1;
+            }
+        }
+        console.log("Масив 4x4:");
+        matrix.forEach(row => console.log(row));
+        let mainDiagonalSum = 0;
+        for (let i = 0; i < 4; i++) {
+            mainDiagonalSum += matrix[i][i];
+        }
+        let secondaryDiagonalSum = 0;
+        for (let i = 0; i < 4; i++) {
+            secondaryDiagonalSum += matrix[i][3 - i];
+        }
+        const difference = mainDiagonalSum - secondaryDiagonalSum;
+        console.log("Сума головної діагоналі:", mainDiagonalSum);
+        console.log("Сума допоміжної діагоналі:", secondaryDiagonalSum);
+        console.log("Різниця (головна - допоміжна):", difference);
+    </script>
+</body>
+</html>
