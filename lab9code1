@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шифр Трисемуса</title>
+</head>
+<body>
+    <script>
+        class TrisemusCipher {
+            constructor(keyword) {
+                this.alphabet = "АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ ";
+                this.table = this.generateTable(keyword);
+            }
+            generateTable(keyword) {
+                let uniqueChars = "";
+                for (let char of keyword.toUpperCase()) {
+                    if (!uniqueChars.includes(char) && this.alphabet.includes(char)) {
+                        uniqueChars += char;
+                    }
+                }
+                let table = uniqueChars;
+                for (let char of this.alphabet) {
+                    if (!table.includes(char)) {
+                        table += char;
+                    }
+                }
+                return table;
+            }
+            encrypt(message) {
+                let encrypted = "";
+                for (let char of message.toUpperCase()) {
+                    if (this.alphabet.includes(char)) {
+                        const index = this.table.indexOf(char);
+                        const newIndex = (index + 6) % this.table.length;
+                        encrypted += this.table[newIndex];
+                    } else {
+                        encrypted += char;
+                    }
+                }
+                return encrypted;
+            }
+            decrypt(encryptedMessage) {
+                let decrypted = "";
+                for (let char of encryptedMessage.toUpperCase()) {
+                    if (this.alphabet.includes(char)) {
+                        const index = this.table.indexOf(char);
+                        const newIndex = (index - 6 + this.table.length) % this.table.length;
+                        decrypted += this.table[newIndex];
+                    } else {
+                        decrypted += char;
+                    }
+                }
+                return decrypted;
+            }
+        }
+        const cipher = new TrisemusCipher("ПАРОЛЬ");
+        const originalMessage = "ПРИВІТ СВІТЕ";
+        console.log("Оригінальне повідомлення:", originalMessage);
+        const encrypted = cipher.encrypt(originalMessage);
+        console.log("Зашифроване повідомлення:", encrypted);
+        const decrypted = cipher.decrypt(encrypted);
+        console.log("Розшифроване повідомлення:", decrypted);
+    </script>
+</body>
+</html>
