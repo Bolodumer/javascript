@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Робота з об'єктом Window</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            width: 300px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #screenWidth {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            display: none;
+        }
+        #scrollbarsInfo {
+            margin: 15px 0;
+            padding: 15px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            background-color: #e8f4fc;
+            min-height: 50px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Дії з об'єктом Window</h2>
+        <div>
+            <button onclick="checkPersonalBar()">Перевірити персональну панель</button>
+        </div>
+        <div>
+            <button onclick="showScreenWidth()">Показати ширину екрану</button>
+            <p id="screenWidth"></p>
+        </div>
+        <div>
+            <button onclick="checkScrollbars()">Перевірити смуги прокручування</button>
+            <div id="scrollbarsInfo"></div>
+        </div>
+    </div>
+    <script>
+        function checkPersonalBar() {
+            alert("У сучасних браузерах інформація про персональну панель обмежена з міркувань безпеки.\nДетальна інформація недоступна через JavaScript.");
+        }
+        function showScreenWidth() {
+            const screenWidth = window.screen.width;
+            const screenWidthElement = document.getElementById('screenWidth');
+            screenWidthElement.textContent = `Ширина екрану: ${screenWidth} пікселів`;
+            screenWidthElement.style.display = 'block';
+        }
+        function checkScrollbars() {
+            const scrollbarsDiv = document.getElementById('scrollbarsInfo');
+            const hasVerticalScrollbar = document.documentElement.scrollHeight > document.documentElement.clientHeight;
+            const hasHorizontalScrollbar = document.documentElement.scrollWidth > document.documentElement.clientWidth;
+            let message = "Інформація про смуги прокручування:\n";
+            if (hasVerticalScrollbar) {
+                message += "✓ Вертикальна смуга прокручування: відображається\n";
+            } else {
+                message += "✗ Вертикальна смуга прокручування: не відображається\n";
+            }
+            if (hasHorizontalScrollbar) {
+                message += "✓ Горизонтальна смуга прокручування: відображається\n";
+            } else {
+                message += "✗ Горизонтальна смуга прокручування: не відображається\n";
+            }
+            scrollbarsDiv.textContent = message;
+            scrollbarsDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
