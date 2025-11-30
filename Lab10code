@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обробка винятків</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .array-display {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input type="text" id="numberInput" placeholder="Введіть ціле число">
+        <button onclick="addToArray()">Додати до масиву</button>
+    </div>
+    <div id="result" class="result"></div>
+    <div id="arrayDisplay" class="array-display"></div>
+    <script>
+        let numbersArray = [1, 5, 10, 15];
+        function updateArrayDisplay() {
+            const arrayDiv = document.getElementById('arrayDisplay');
+            arrayDiv.textContent = `Поточний масив: [${numbersArray.join(', ')}]`;
+        }
+        function addToArray() {
+            const input = document.getElementById('numberInput');
+            const resultDiv = document.getElementById('result');
+            const inputValue = input.value.trim();
+            try {
+                if (inputValue === '') {
+                    throw new Error('Будь ласка, введіть число');
+                }
+                const number = parseInt(inputValue);
+                if (isNaN(number)) {
+                    throw new Error('Введене значення не є цілим числом');
+                }
+                if (!Number.isInteger(number)) {
+                    throw new Error('Введене число не є цілим');
+                }
+                numbersArray.push(number);
+                resultDiv.textContent = `Число ${number} успішно додано до масиву`;
+                resultDiv.className = 'result success';
+                input.value = '';
+            } catch (error) {
+                resultDiv.textContent = `Помилка: ${error.message}`;
+                resultDiv.className = 'result error';
+            } finally {
+                updateArrayDisplay();
+            }
+        }
+        document.getElementById('numberInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                addToArray();
+            }
+        });
+        updateArrayDisplay();
+    </script>
+</body>
+</html>
