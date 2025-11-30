@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обробка масиву</title>
+</head>
+<body>
+    <script>
+        const originalArray = [];
+        for (let i = 1; i <= 12; i++) {
+            originalArray.push(i * 3);
+        }
+        console.log("Початковий масив:", originalArray);
+        const firstArray = originalArray.slice(0, 6);
+        const secondArray = originalArray.slice(6, 12);
+        console.log("Перший масив (6 елементів):", firstArray);
+        console.log("Другий масив (6 елементів):", secondArray);
+        const squaredSecondArray = secondArray.map(element => element * element);
+        console.log("Другий масив після піднесення до квадрату:", squaredSecondArray);
+        firstArray.shift();
+        console.log("Перший масив після видалення початкового елемента:", firstArray);
+        console.log("Фінальний результат:");
+        console.log("Перший масив:", firstArray);
+        console.log("Другий масив:", squaredSecondArray);
+    </script>
+</body>
+</html>
