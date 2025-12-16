@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="text" id="phone" placeholder="Введіть номер телефону">
+<button onclick="checkPhone()">Перевірити</button>
+<p id="result"></p>
+<script>
+function checkPhone() {
+    let phone = document.getElementById("phone").value;
+    let phoneRegex = /^(\+380|0)\d{9}$/;
+    if (phoneRegex.test(phone)) {
+        document.getElementById("result").textContent = "Номер телефону введено коректно";
+    } else {
+        document.getElementById("result").textContent = "Невірний формат номера";
+    }
+}
+</script>
+</body>
+</html>
